@@ -1,0 +1,23 @@
+{
+    "name": "azure-functions",
+    "config": {
+      "topics": "functions-test",
+      "tasks.max": "1",
+      "connector.class": "io.confluent.connect.azure.functions.AzureFunctionsSinkConnector",
+      "key.converter":"org.apache.kafka.connect.storage.StringConverter",
+      "value.converter":"org.apache.kafka.connect.storage.StringConverter",
+      "confluent.topic.bootstrap.servers": "localhost:9092",
+      "confluent.topic.replication.factor": "1",
+      "function.url": "<the copied function url>",
+      "function.key": "<the copied function key>",
+      "reporter.bootstrap.servers": "localhost:9092",
+      "reporter.error.topic.name": "test-error",
+      "reporter.error.topic.replication.factor": 1,
+      "reporter.error.topic.key.format": "string",
+      "reporter.error.topic.value.format": "string",
+      "reporter.result.topic.name": "test-result",
+      "reporter.result.topic.key.format": "string",
+      "reporter.result.topic.value.format": "string",
+      "reporter.result.topic.replication.factor": 1
+    }
+  }

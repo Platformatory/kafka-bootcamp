@@ -1,0 +1,87 @@
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "gradle.plugin.com.github.jengelman.gradle.plugins:shadow:7.0.0"
+    }
+}
+
+plugins {
+    id 'java'
+    id 'idea'
+    id 'eclipse'
+    id 'maven-publish'
+}
+
+repositories {
+    mavenLocal()
+    maven {
+        url = uri('https://packages.confluent.io/maven/')
+    }
+
+    maven {
+        url = uri('https://repo.maven.apache.org/maven2/')
+    }
+}
+
+apply plugin: "com.github.johnrengelman.shadow"
+
+dependencies {
+    implementation 'io.confluent:common-utils:7.3.1'
+    implementation 'io.confluent:common-utils:7.3.1'
+    implementation 'org.apache.kafka:kafka-clients:7.3.1-ccs'
+    implementation 'io.confluent:kafka-avro-serializer:7.3.1'
+    implementation 'io.confluent:kafka-streams-avro-serde:7.3.1'
+    implementation 'org.apache.kafka:kafka-streams:7.3.1-ccs'
+    implementation 'org.apache.kafka:connect-runtime:7.3.1-ccs'
+    implementation 'io.confluent:kafka-json-serializer:7.3.1'
+    implementation 'org.slf4j:slf4j-api:1.7.6'
+    implementation 'org.slf4j:slf4j-log4j12:1.7.6'
+    implementation 'org.slf4j:slf4j-reload4j:1.7.36'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4'
+    implementation 'com.google.code.gson:gson:2.2.4'
+    implementation 'io.confluent:common-utils:7.3.1'
+    compileOnly 'io.confluent:assembly-plugin-boilerplate:7.3.1'
+    compileOnly 'io.confluent:assembly-plugin-boilerplate:7.3.1'
+    compileOnly 'io.confluent:assembly-plugin-boilerplate:7.3.1'
+    compileOnly 'io.confluent:assembly-plugin-boilerplate:7.3.1'
+}
+
+group = 'io.confluent'
+version = '7.3.1'
+description = 'clients-example'
+java.sourceCompatibility = JavaVersion.VERSION_1_8
+
+tasks.register('testsJar', Jar) {
+    archiveClassifier = 'tests'
+    from(sourceSets.test.output)
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from(components.java)
+            artifact(testsJar)
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+jar {
+    manifest {
+        attributes(
+                "Class-Path": configurations.compileClasspath.collect { it.getName() }.join(" "),
+                "Main-Class": "examples.ProducerAvroExample"
+        )
+    }
+}
+
+shadowJar {
+    archiveBaseName = "kafka-clients-java"
+    archiveClassifier = ''
+}

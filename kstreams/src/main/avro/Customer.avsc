@@ -1,0 +1,20 @@
+{
+  "type" : "record",
+  "name" : "Customer",
+  "namespace" : "schema",
+  "fields" : [ {
+      "name" : "customerId",
+      "type" : "int",
+      "doc"  : "Identifier for reference"
+   }, 
+   {
+      "name" : "email",
+      "type" : "string",
+      "doc"  : "Email address of user"
+  }, {
+        "name" : "age",
+        "type" : "int",
+        "doc" : "Age of user"
+  }],
+  "doc:" : "Schema of user"
+}

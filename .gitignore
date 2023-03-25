@@ -1,0 +1,6 @@
+cli/kafka_2.13-3.3.1
+java-client/.gradle
+kstreams/target
+kstreams/producer.properties
+java-client/bin
+java-client/build
